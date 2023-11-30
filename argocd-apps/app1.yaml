@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata: 
+  name: test-app1
+  namespace: argocd
+spec: 
+  destination: 
+    namespace: default
+    server: "https://kubernetes.default.svc"
+  project: default
+  source: 
+    path: .
+    repoURL: "https://github.com/magiclab396-global/fleetman-position-tracker-infra.git"
+    targetRevision: master
+    kustomize:
+  syncPolicy:
+    automated: 
+      prune: true
+    syncOptions:
+      - CreateNamespace=true

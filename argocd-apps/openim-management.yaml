@@ -1,0 +1,33 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata: 
+  name: openim-management
+  namespace: argocd
+spec: 
+  destination: 
+    namespace: openim-management
+    server: "https://kubernetes.default.svc"
+  project: openim-project
+  sources: 
+   - path: open-im-management/config-chart
+     repoURL: "https://github.com/truongpx396/OpenIM-K8S-Deployment.git"
+     targetRevision: main
+     helm:
+      releaseName: config
+   - path: open-im-management/api-admin
+     repoURL: "https://github.com/truongpx396/OpenIM-K8S-Deployment.git"
+     targetRevision: main
+   - path: open-im-management/api-chat
+     repoURL: "https://github.com/truongpx396/OpenIM-K8S-Deployment.git"
+     targetRevision: main
+   - path: open-im-management/rpc-admin
+     repoURL: "https://github.com/truongpx396/OpenIM-K8S-Deployment.git"
+     targetRevision: main
+   - path: open-im-management/rpc-chat
+     repoURL: "https://github.com/truongpx396/OpenIM-K8S-Deployment.git"
+     targetRevision: main
+  syncPolicy:
+    automated: 
+      prune: true
+    syncOptions:
+      - CreateNamespace=true

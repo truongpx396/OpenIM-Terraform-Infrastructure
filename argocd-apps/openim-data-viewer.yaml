@@ -1,0 +1,56 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata: 
+  name: openim-data-viewer
+  namespace: argocd
+spec: 
+  destination: 
+    namespace: openim-data-viewer
+    server: "https://kubernetes.default.svc"
+  project: openim-project
+  sources: 
+   - chart: phpmyadmin
+     repoURL: "https://charts.bitnami.com/bitnami"
+     targetRevision: 13.1.1
+     helm:
+      releaseName: openim-data-viewer-phpmyadmin
+      valueFiles:
+      - $values/open-im-data-viewer/php-myadmin/values.yaml
+   - chart: redis-commander
+     repoURL: "https://kfirfer.github.io/charts"
+     targetRevision: 0.1.14
+     helm:
+      releaseName: openim-data-viewer-redis-commander
+      valueFiles:
+      - $values/open-im-data-viewer/redis-commander/values.yaml
+   - chart: mongo-express
+     repoURL: "https://cowboysysop.github.io/charts"
+     targetRevision: 6.0.0
+     helm:
+      releaseName: openim-data-viewer-mongo-express
+      valueFiles:
+      - $values/open-im-data-viewer/mongo-express/values.yaml
+   - chart: kafka-ui
+     repoURL: "https://provectus.github.io/kafka-ui-charts"
+     targetRevision: 0.7.5
+     helm:
+      releaseName: openim-data-viewer-kafka-ui
+      valueFiles:
+      - $values/open-im-data-viewer/kafka-ui/values.yaml
+   - chart: zoonavigator
+     repoURL: "https://lowess.github.io/helm-charts"
+     targetRevision: 0.1.4
+     helm:
+      releaseName: openim-zookeeper
+      valueFiles:
+      - $values/open-im-data-viewer/zoo-navigator/values.yaml
+   - repoURL: "https://github.com/truongpx396/OpenIM-K8S-Deployment.git"
+     ref: values
+     targetRevision: main
+  syncPolicy:
+    automated: 
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      # - ServerSideApply=true

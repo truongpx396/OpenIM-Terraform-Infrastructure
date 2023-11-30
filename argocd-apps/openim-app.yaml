@@ -1,0 +1,59 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata: 
+  name: openim-app
+  namespace: argocd
+spec: 
+  destination: 
+    namespace: openim
+    server: "https://kubernetes.default.svc"
+  project: openim-project
+  sources: 
+   - path: open-im-server/config/config-chart
+     repoURL: "https://github.com/truongpx396/OpenIM-K8S-Deployment.git"
+     targetRevision: main
+     helm:
+      releaseName: config
+   - path: open-im-server/config/notification-config-chart
+     repoURL: "https://github.com/truongpx396/OpenIM-K8S-Deployment.git"
+     targetRevision: main
+     helm:
+      releaseName: notification
+   - path: open-im-server/api
+     repoURL: "https://github.com/truongpx396/OpenIM-K8S-Deployment.git"
+     targetRevision: main
+   - path: open-im-server/msg_gateway
+     repoURL: "https://github.com/truongpx396/OpenIM-K8S-Deployment.git"
+     targetRevision: main
+   - path: open-im-server/msg_transfer
+     repoURL: "https://github.com/truongpx396/OpenIM-K8S-Deployment.git"
+     targetRevision: main
+   - path: open-im-server/push
+     repoURL: "https://github.com/truongpx396/OpenIM-K8S-Deployment.git"
+     targetRevision: main
+   - path: open-im-server/rpc_auth
+     repoURL: "https://github.com/truongpx396/OpenIM-K8S-Deployment.git"
+     targetRevision: main
+   - path: open-im-server/rpc_conversation
+     repoURL: "https://github.com/truongpx396/OpenIM-K8S-Deployment.git"
+     targetRevision: main
+   - path: open-im-server/rpc_friend
+     repoURL: "https://github.com/truongpx396/OpenIM-K8S-Deployment.git"
+     targetRevision: main
+   - path: open-im-server/rpc_group
+     repoURL: "https://github.com/truongpx396/OpenIM-K8S-Deployment.git"
+     targetRevision: main
+   - path: open-im-server/rpc_msg
+     repoURL: "https://github.com/truongpx396/OpenIM-K8S-Deployment.git"
+     targetRevision: main
+   - path: open-im-server/rpc_third
+     repoURL: "https://github.com/truongpx396/OpenIM-K8S-Deployment.git"
+     targetRevision: main
+   - path: open-im-server/rpc_user
+     repoURL: "https://github.com/truongpx396/OpenIM-K8S-Deployment.git"
+     targetRevision: main
+  syncPolicy:
+    automated:
+      prune: true
+    syncOptions:
+      - CreateNamespace=true

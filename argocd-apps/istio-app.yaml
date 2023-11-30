@@ -1,0 +1,76 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata: 
+  name: istio-app
+  namespace: argocd
+spec: 
+  destination: 
+    namespace: istio-system
+    server: "https://kubernetes.default.svc"
+  project: system-project
+  sources: 
+   - chart: base
+     repoURL: "https://istio-release.storage.googleapis.com/charts"
+     targetRevision: 1.19.2
+     helm:
+      releaseName: istio-base
+   - chart: istiod
+     repoURL: "https://istio-release.storage.googleapis.com/charts"
+     targetRevision: 1.19.2
+     helm:
+      releaseName: istio
+      # parameters:
+      #  - "name": "global.operatorManageWebhooks"
+      #    "value": "true"
+   - chart: gateway
+     repoURL: "https://istio-release.storage.googleapis.com/charts"
+     targetRevision: 1.19.2
+     helm:
+      releaseName: istio-ingressgateway
+      parameters:
+       - "name": "service.type"
+         "value": "NodePort"
+   - path: samples/addons/
+     repoURL: "https://github.com/istio/istio.git"
+     targetRevision: master
+     directory:
+      # recurse: true
+      jsonnet: {}
+      exclude: '{loki.yaml}'
+  syncPolicy:
+    automated: 
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      # - ServerSideApply=true
+
+# ---
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: istio-ingress-app
+#   namespace: argocd
+# spec:
+#   destination: 
+#     namespace: istio-system-ingress
+#     server: "https://kubernetes.default.svc"
+#   project: system-project
+#   sources: 
+#    - chart: gateway
+#      repoURL: "https://istio-release.storage.googleapis.com/charts"
+#      targetRevision: 1.19.2
+#      helm:
+#       releaseName: istio-ingressgateway
+#       parameters:
+#        - "name": "service.type"
+#          "value": "ClusterIP"
+#   syncPolicy:
+#     automated: 
+#         prune: true
+#         # selfHeal: true
+#     managedNamespaceMetadata:
+#       labels:
+#         istio-injection: enabled
+#     syncOptions:
+#     - CreateNamespace=true

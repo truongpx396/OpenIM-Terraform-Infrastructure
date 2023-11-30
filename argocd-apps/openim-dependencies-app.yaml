@@ -1,0 +1,70 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata: 
+  name: openim-dependencies-app
+  namespace: argocd
+spec: 
+  destination: 
+    namespace: openim-dependencies
+    server: "https://kubernetes.default.svc"
+  project: openim-project
+  sources: 
+   - chart: mysql
+     repoURL: "https://charts.bitnami.com/bitnami"
+     targetRevision: 9.14.1
+     helm:
+      releaseName: openim-mysql
+      valueFiles:
+      - $values/open-im-dependencies/mysql/values.yaml
+   - chart: redis
+     repoURL: "https://charts.bitnami.com/bitnami"
+     targetRevision: 18.1.6
+     helm:
+      releaseName: openim-redis
+      valueFiles:
+      - $values/open-im-dependencies/redis/values.yaml
+   - chart: mongodb
+     repoURL: "https://charts.bitnami.com/bitnami"
+     targetRevision: 14.0.14
+     helm:
+      releaseName: openim-mongodb
+      valueFiles:
+      - $values/open-im-dependencies/mongodb/values.yaml
+   - chart: kafka
+     repoURL: "https://charts.bitnami.com/bitnami"
+     targetRevision: 26.2.0
+     helm:
+      releaseName: openim-kafka
+      valueFiles:
+      - $values/open-im-dependencies/kafka/values.yaml
+   - chart: zookeeper
+     repoURL: "https://charts.bitnami.com/bitnami"
+     targetRevision: 12.1.6
+     helm:
+      releaseName: openim-zookeeper
+      valueFiles:
+      - $values/open-im-dependencies/zookeeper/values.yaml
+   - chart: minio
+     repoURL: "https://charts.bitnami.com/bitnami"
+     targetRevision: 12.10.3
+     helm:
+      releaseName: openim-minio
+      valueFiles:
+      - $values/open-im-dependencies/minio/values.yaml
+  #  - chart: etcd
+  #    repoURL: "https://charts.bitnami.com/bitnami"
+  #    targetRevision: 9.5.1
+  #    helm:
+  #     releaseName: openim-etcd
+      # valueFiles:
+      # - $values/etcd/values.yaml
+   - repoURL: "https://github.com/truongpx396/OpenIM-K8S-Deployment.git"
+     ref: values
+     targetRevision: main
+  syncPolicy:
+    automated: 
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      # - ServerSideApply=true

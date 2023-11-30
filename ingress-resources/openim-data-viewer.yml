@@ -1,0 +1,76 @@
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress 
+metadata: 
+  name: openim-data-viewer-ingress
+  namespace: openim-data-viewer
+  annotations: 
+    alb.ingress.kubernetes.io/target-type: 'ip'
+    # kubernetes.io/ingress.class: my-aws-ingress-class  
+    alb.ingress.kubernetes.io/load-balancer-name: ingress-ssl-gateway
+    alb.ingress.kubernetes.io/scheme: internet-facing 
+    alb.ingress.kubernetes.io/healthcheck-path: /api/health
+    alb.ingress.kubernetes.io/healthcheck-protocol: HTTP
+    alb.ingress.kubernetes.io/healthcheck-port: traffic-port
+    # alb.ingress.kubernetes.io/backend-protocol: HTTPS
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
+    alb.ingress.kubernetes.io/ssl-redirect: '443'
+    # alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-southeast-1:659706089488:certificate/793a6154-8a24-449d-aed5-9257e19f5c92
+    # alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-southeast-1:659706089488:certificate/8409e5b2-ddb2-4249-8f39-8d8a931a585f
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-southeast-1:659706089488:certificate/0794d684-6a4c-46ba-9989-11d434dc16df
+    external-dns.alpha.kubernetes.io/hostname: kafka-ui.k8s.magiclab396.com,mongo-express.k8s.magiclab396.com,phpmyadmin.k8s.magiclab396.com,redis-commander.k8s.magiclab396.com,zoonavigator.k8s.magiclab396.com
+    alb.ingress.kubernetes.io/group.name: myapps.web
+    alb.ingress.kubernetes.io/group.order: '50'
+spec:
+  ingressClassName: my-aws-ingress-class
+  rules:
+  - host: "kafka-ui.k8s.magiclab396.com"
+    http:
+      paths:      
+      - backend:
+          service:
+            name: openim-data-viewer-kafka-ui
+            port: 
+              number: 80
+        path: /
+        pathType: Prefix
+  - host: "mongo-express.k8s.magiclab396.com"
+    http:
+      paths:      
+      - backend:
+          service:
+            name: openim-data-viewer-mongo-express
+            port: 
+              number: 8081
+        path: /
+        pathType: Prefix
+  - host: "phpmyadmin.k8s.magiclab396.com"
+    http:
+      paths:      
+      - backend:
+          service:
+            name: openim-data-viewer-phpmyadmin
+            port: 
+              number: 80
+        path: /
+        pathType: Prefix
+  - host: "redis-commander.k8s.magiclab396.com"
+    http:
+      paths:      
+      - backend:
+          service:
+            name: openim-data-viewer-redis-commander
+            port: 
+              number: 80
+        path: /
+        pathType: Prefix
+  - host: "zoonavigator.k8s.magiclab396.com"
+    http:
+      paths:      
+      - backend:
+          service:
+            name: openim-zookeeper-zoonavigator
+            port: 
+              number: 9000
+        path: /
+        pathType: Prefix

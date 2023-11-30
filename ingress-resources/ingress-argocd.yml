@@ -1,0 +1,75 @@
+
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    alb.ingress.kubernetes.io/backend-protocol-version: HTTP2 #This tells AWS to send traffic from the ALB using HTTP2. Can use GRPC as well if you want to leverage GRPC specific features
+  labels:
+    app: argogrpc
+  name: argogrpc
+  namespace: argocd
+spec:
+  ports:
+  - name: "443"
+    port: 443
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app.kubernetes.io/name: argocd-server
+  sessionAffinity: None
+  type: NodePort
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress 
+metadata: 
+  name: argocd-ingress
+  namespace: argocd
+  annotations: 
+    alb.ingress.kubernetes.io/target-type: 'ip'
+    # kubernetes.io/ingress.class: my-aws-ingress-class  
+    alb.ingress.kubernetes.io/load-balancer-name: ingress-ssl-gateway
+    alb.ingress.kubernetes.io/scheme: internet-facing 
+    # alb.ingress.kubernetes.io/healthcheck-path: :server/healthz
+    # alb.ingress.kubernetes.io/healthcheck-path: /healthz
+    # alb.ingress.kubernetes.io/healthcheck-protocol: HTTP
+    # alb.ingress.kubernetes.io/healthcheck-port: traffic-port
+    alb.ingress.kubernetes.io/backend-protocol: HTTPS
+    alb.ingress.kubernetes.io/conditions.argogrpc: |
+       [{"field":"http-header","httpHeaderConfig":{"httpHeaderName": "Content-Type", "values":["application/grpc"]}}]
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}]'
+    # alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
+    # alb.ingress.kubernetes.io/ssl-redirect: '443'
+    # alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-southeast-1:659706089488:certificate/8409e5b2-ddb2-4249-8f39-8d8a931a585f
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-southeast-1:659706089488:certificate/0794d684-6a4c-46ba-9989-11d434dc16df
+    external-dns.alpha.kubernetes.io/hostname: argocd.k8s.magiclab396.com
+    alb.ingress.kubernetes.io/group.name: myapps.web
+    alb.ingress.kubernetes.io/group.order: '20'
+spec:
+  ingressClassName: my-aws-ingress-class
+  rules:
+  - host: argocd.k8s.magiclab396.com
+    http:
+      paths:
+      - pathType: Prefix     
+        path: /
+        backend:
+          service:
+            name: argogrpc
+            port: 
+              number: 443
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: argo-cd-argocd-server 
+            port:
+              number: 443
+  tls:
+  - hosts:
+    - argocd.k8s.magiclab396.com
+    # secretName: argocd-secret
+      # -  route:
+  #   - destination:
+  #       host: grafana.istio-system.svc.cluster.local
+  #       port:
+  #         number: 3000
