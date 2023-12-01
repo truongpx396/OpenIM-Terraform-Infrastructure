@@ -65,7 +65,7 @@ resource "kubernetes_labels" "istio_enabled_openim_dependencies" {
   api_version = "v1"
   kind        = "Namespace"
   metadata {
-    name = "openim_dependencies"
+    name = "openim-dependencies"
     namespace = "openim-dependencies"
   }
   labels = {
@@ -81,7 +81,7 @@ resource "kubernetes_labels" "istio_enabled_openim_management" {
   api_version = "v1"
   kind        = "Namespace"
   metadata {
-    name = "openim_management"
+    name = "openim-management"
     namespace = "openim-management"
   }
   labels = {
