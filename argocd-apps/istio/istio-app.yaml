@@ -21,9 +21,6 @@ spec:
       releaseName: istio
       valueFiles:
          - $values/system/istio/istiod/values.yaml
-   - repoURL: "https://github.com/truongpx396/OpenIM-K8S-Deployment.git"
-     ref: values
-     targetRevision: main
       # parameters:
       #  - "name": "global.operatorManageWebhooks"
       #    "value": "true"
@@ -32,16 +29,21 @@ spec:
      targetRevision: 1.19.2
      helm:
       releaseName: istio-ingressgateway
-      parameters:
-       - "name": "service.type"
-         "value": "NodePort"
-   - path: samples/addons/
-     repoURL: "https://github.com/istio/istio.git"
-     targetRevision: master
+      valueFiles:
+         - $values/system/istio/gateway/values.yaml
+      # parameters:
+      #  - "name": "service.type"
+      #    "value": "NodePort"
+   - path: system/istio/addons/
+     repoURL: "https://github.com/truongpx396/OpenIM-K8S-Deployment.git"
+     targetRevision: main
      directory:
       # recurse: true
       jsonnet: {}
       exclude: '{loki.yaml}'
+   - repoURL: "https://github.com/truongpx396/OpenIM-K8S-Deployment.git"
+     ref: values
+     targetRevision: main
   syncPolicy:
     automated: 
       prune: true
