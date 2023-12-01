@@ -27,6 +27,44 @@ resource "kubernetes_labels" "istio_enabled" {
   }
 }
 
+resource "kubernetes_labels" "istio_enabled_openim" {
+  api_version = "v1"
+  kind        = "Namespace"
+  metadata {
+    name = "openim"
+    namespace = "openim"
+  }
+  labels = {
+    istio-injection = "enabled"
+  }
+}
+
+resource "kubernetes_labels" "istio_enabled_openim_dependencies" {
+  api_version = "v1"
+  kind        = "Namespace"
+  metadata {
+    name = "openim_dependencies"
+    namespace = "openim-dependencies"
+  }
+  labels = {
+    istio-injection = "enabled"
+  }
+}
+
+resource "kubernetes_labels" "istio_enabled_openim_management" {
+  api_version = "v1"
+  kind        = "Namespace"
+  metadata {
+    name = "openim_management"
+    namespace = "openim-management"
+  }
+  labels = {
+    istio-injection = "enabled"
+  }
+}
+
+
+
 # resource "kubernetes_namespace" "istio-ingress" {
 #   metadata {
 #     labels = {
