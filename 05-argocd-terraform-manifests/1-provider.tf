@@ -15,6 +15,24 @@ resource "kubernetes_namespace" "argocd" {
   }
 }
 
+resource "kubernetes_namespace" "openim" {
+  metadata {
+    name = "openim"
+  }
+}
+
+resource "kubernetes_namespace" "openim_dependencies" {
+  metadata {
+    name = "openim-dependencies"
+  }
+}
+
+resource "kubernetes_namespace" "openim_management" {
+  metadata {
+    name = "openim-management"
+  }
+}
+
 resource "kubernetes_labels" "istio_enabled" {
   api_version = "v1"
   kind        = "Namespace"
@@ -37,6 +55,10 @@ resource "kubernetes_labels" "istio_enabled_openim" {
   labels = {
     istio-injection = "enabled"
   }
+
+  depends_on = [
+    kubernetes_namespace.kubernetes_namespace.openim
+  ]
 }
 
 resource "kubernetes_labels" "istio_enabled_openim_dependencies" {
@@ -49,6 +71,10 @@ resource "kubernetes_labels" "istio_enabled_openim_dependencies" {
   labels = {
     istio-injection = "enabled"
   }
+
+  depends_on = [
+    kubernetes_namespace.openim_dependencies
+  ]
 }
 
 resource "kubernetes_labels" "istio_enabled_openim_management" {
@@ -61,6 +87,10 @@ resource "kubernetes_labels" "istio_enabled_openim_management" {
   labels = {
     istio-injection = "enabled"
   }
+
+  depends_on = [
+    kubernetes_namespace.openim_management
+  ]
 }
 
 
