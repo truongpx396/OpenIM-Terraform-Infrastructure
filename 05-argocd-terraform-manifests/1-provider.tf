@@ -57,7 +57,7 @@ resource "kubernetes_labels" "istio_enabled_openim" {
   }
 
   depends_on = [
-    kubernetes_namespace.kubernetes_namespace.openim
+    kubernetes_namespace.openim
   ]
 }
 
