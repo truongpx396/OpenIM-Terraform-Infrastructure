@@ -19,6 +19,11 @@ spec:
      targetRevision: 1.19.2
      helm:
       releaseName: istio
+      valueFiles:
+         - $values/system/istio/istiod/values.yaml
+   - repoURL: "https://github.com/truongpx396/OpenIM-K8S-Deployment.git"
+     ref: values
+     targetRevision: main
       # parameters:
       #  - "name": "global.operatorManageWebhooks"
       #    "value": "true"
