@@ -42,11 +42,17 @@ spec:
     #         host: productpage
     #         port:
     #           number: 9080
+    
+    # - route:
+    #     - destination:
+    #         host: api.openim.svc.cluster.local
+    #         port:
+    #           number: 10002
     - route:
         - destination:
-            host: api.openim.svc.cluster.local
+            host: kube-prometheus-stack-prometheus.monitoring.svc.cluster.local
             port:
-              number: 10002
+              number: 9090
 
 ---
 apiVersion: networking.istio.io/v1alpha3
