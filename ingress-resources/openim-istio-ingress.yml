@@ -55,13 +55,13 @@ metadata:
     # alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-southeast-1:659706089488:certificate/793a6154-8a24-449d-aed5-9257e19f5c92
     # alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-southeast-1:659706089488:certificate/8409e5b2-ddb2-4249-8f39-8d8a931a585f
     alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-southeast-1:659706089488:certificate/0794d684-6a4c-46ba-9989-11d434dc16df
-    external-dns.alpha.kubernetes.io/hostname: k8s.magiclab396.com
+    external-dns.alpha.kubernetes.io/hostname: openim.k8s.magiclab396.com,openim-gateway.k8s.magiclab396.com
     alb.ingress.kubernetes.io/group.name: myapps.web
     alb.ingress.kubernetes.io/group.order: '10'
 spec:
   ingressClassName: my-aws-ingress-class
   rules:
-  - host: "k8s.magiclab396.com"
+  - host: "openim.k8s.magiclab396.com"
     http:
       paths:      
       - backend:
@@ -85,7 +85,30 @@ spec:
               number: 443
         path: /
         pathType: Prefix
-
+  - host: "openim-gateway.k8s.magiclab396.com"
+    http:
+      paths:      
+      - backend:
+          service:
+            name: ssl-redirect
+            port: 
+              name: use-annotation
+        path: /    
+        pathType: Prefix  
+      - backend:
+          service:
+            name: istio-ingressgateway
+            port: 
+              number: 15021
+        path: /healthz/ready
+        pathType: Prefix
+      - backend:
+          service:
+            name: istio-ingressgateway
+            port: 
+              number: 443
+        path: /
+        pathType: Prefix
       # -  route:
   #   - destination:
   #       host: grafana.istio-system.svc.cluster.local
