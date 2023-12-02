@@ -18,6 +18,6 @@ resource "helm_release" "argocd" {
     kubernetes_namespace.argocd,
     kubernetes_namespace.openim,
     kubernetes_namespace.openim_management,
-    kubernetes_namespace.kubernetes_namespace.openim_dependencies
+    kubernetes_namespace.openim_dependencies
   ]
 }
