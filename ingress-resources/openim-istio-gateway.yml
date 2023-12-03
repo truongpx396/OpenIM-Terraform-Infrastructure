@@ -26,11 +26,16 @@ spec:
   gateways:
   - openim-istio-gateway
   http:
-    - match:
-      # - uri:
-      #     exact: /productpage
-      - uri:
-          prefix: /
+  - match:
+    # - uri:
+    #     exact: /productpage
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        host: kube-prometheus-stack-prometheus.monitoring.svc.cluster.local
+        port:
+          number: 9090
   #   - uri:
   #       exact: /login
   #   - uri:
@@ -48,11 +53,11 @@ spec:
     #         host: api.openim.svc.cluster.local
     #         port:
     #           number: 10002
-    - route:
-        - destination:
-            host: kube-prometheus-stack-prometheus.monitoring.svc.cluster.local
-            port:
-              number: 9090
+    # - route:
+    #     - destination:
+    #         host: kube-prometheus-stack-prometheus.monitoring.svc.cluster.local
+    #         port:
+    #           number: 9090
 
 ---
 apiVersion: networking.istio.io/v1alpha3
