@@ -42,7 +42,10 @@ spec:
   #       exact: /logout
   #   - uri:
   #       prefix: /api/v1/products
-    - route:
+     - match:
+        - uri:
+            prefix: /
+       route:
         - destination:
             host: productpage
             port:
