@@ -26,11 +26,11 @@ spec:
   gateways:
   - openim-istio-gateway
   http:
-  - match:
-    # - uri:
-    #     exact: /productpage
-    - uri:
-        prefix: /
+    - match:
+      # - uri:
+      #     exact: /productpage
+      - uri:
+          prefix: /
   #   - uri:
   #       exact: /login
   #   - uri:
