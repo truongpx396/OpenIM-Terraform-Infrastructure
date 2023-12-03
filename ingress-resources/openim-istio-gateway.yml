@@ -42,25 +42,25 @@ spec:
   #       exact: /logout
   #   - uri:
   #       prefix: /api/v1/products
-     - match:
-        - uri:
-            prefix: /
-       route:
-        - destination:
-            host: productpage
-            port:
-              number: 9080
+    #  - match:
+    #     - uri:
+    #         prefix: /
+    #    route:
+    #     - destination:
+    #         host: productpage
+    #         port:
+    #           number: 9080
     
     # - route:
     #     - destination:
     #         host: api.openim.svc.cluster.local
     #         port:
     #           number: 10002
-    # - route:
-    #     - destination:
-    #         host: kube-prometheus-stack-prometheus.monitoring.svc.cluster.local
-    #         port:
-    #           number: 9090
+    - route:
+        - destination:
+            host: kube-prometheus-stack-prometheus.monitoring.svc.cluster.local
+            port:
+              number: 9090
 
 ---
 apiVersion: networking.istio.io/v1alpha3
