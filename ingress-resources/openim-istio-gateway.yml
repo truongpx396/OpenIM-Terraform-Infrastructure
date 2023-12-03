@@ -14,7 +14,16 @@ spec:
       mode: SIMPLE                          
       credentialName: myk8s-magiclab396-credential 
     hosts:
-    - "*"  
+    - "*" 
+  - port:
+    number: 443
+    name: https
+    protocol: HTTPS
+    tls:
+      mode: SIMPLE                          
+      credentialName: myk8s-magiclab396-credential 
+    hosts:
+    - "chat-openim.k8s.magiclab396.com"  
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
@@ -79,6 +88,21 @@ spec:
           port:
             number: 10001
 ---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: openim-mgmt-chat
+spec:
+  hosts:
+  - "chat-openim.k8s.magiclab396.com"
+  gateways:
+  - openim-istio-gateway
+  http:
+    - route:
+      - destination:
+          host: management-api-chat.openim-management.svc.cluster.local
+          port:
+            number: 10008
 
 # apiVersion: networking.istio.io/v1alpha3
 # kind: VirtualService

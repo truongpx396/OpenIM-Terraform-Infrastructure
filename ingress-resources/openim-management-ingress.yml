@@ -1,44 +1,44 @@
 
-apiVersion: networking.k8s.io/v1
-kind: Ingress 
-metadata: 
-  name: openim-management-ingress
-  namespace: openim-management
-  annotations: 
-    alb.ingress.kubernetes.io/target-type: 'ip'
-    # kubernetes.io/ingress.class: my-aws-ingress-class  
-    alb.ingress.kubernetes.io/load-balancer-name: ingress-ssl-gateway
-    alb.ingress.kubernetes.io/scheme: internet-facing 
-    alb.ingress.kubernetes.io/healthcheck-path: /api/health
-    alb.ingress.kubernetes.io/healthcheck-protocol: HTTP
-    alb.ingress.kubernetes.io/healthcheck-port: traffic-port
-    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
-    alb.ingress.kubernetes.io/ssl-redirect: '443'
-    # alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-southeast-1:659706089488:certificate/8409e5b2-ddb2-4249-8f39-8d8a931a585f
-    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-southeast-1:659706089488:certificate/0794d684-6a4c-46ba-9989-11d434dc16df
-    external-dns.alpha.kubernetes.io/hostname: admin-openim.k8s.magiclab396.com,chat-openim.k8s.magiclab396.com
-    alb.ingress.kubernetes.io/group.name: myapps.web
-    alb.ingress.kubernetes.io/group.order: '60'
-spec:
-  ingressClassName: my-aws-ingress-class
-  rules:
-  - host: "admin-openim.k8s.magiclab396.com"
-    http:
-      paths:      
-      - backend:
-          service:
-            name: management-api-admin
-            port: 
-              number: 10009
-        path: /
-        pathType: Prefix
-  - host: "chat-openim.k8s.magiclab396.com"
-    http:
-      paths:      
-      - backend:
-          service:
-            name: management-api-chat
-            port: 
-              number: 10008
-        path: /
-        pathType: Prefix
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress 
+# metadata: 
+#   name: openim-management-ingress
+#   namespace: openim-management
+#   annotations: 
+#     alb.ingress.kubernetes.io/target-type: 'ip'
+#     # kubernetes.io/ingress.class: my-aws-ingress-class  
+#     alb.ingress.kubernetes.io/load-balancer-name: ingress-ssl-gateway
+#     alb.ingress.kubernetes.io/scheme: internet-facing 
+#     alb.ingress.kubernetes.io/healthcheck-path: /api/health
+#     alb.ingress.kubernetes.io/healthcheck-protocol: HTTP
+#     alb.ingress.kubernetes.io/healthcheck-port: traffic-port
+#     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
+#     alb.ingress.kubernetes.io/ssl-redirect: '443'
+#     # alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-southeast-1:659706089488:certificate/8409e5b2-ddb2-4249-8f39-8d8a931a585f
+#     alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-southeast-1:659706089488:certificate/0794d684-6a4c-46ba-9989-11d434dc16df
+#     external-dns.alpha.kubernetes.io/hostname: admin-openim.k8s.magiclab396.com,chat-openim.k8s.magiclab396.com
+#     alb.ingress.kubernetes.io/group.name: myapps.web
+#     alb.ingress.kubernetes.io/group.order: '60'
+# spec:
+#   ingressClassName: my-aws-ingress-class
+#   rules:
+#   - host: "admin-openim.k8s.magiclab396.com"
+#     http:
+#       paths:      
+#       - backend:
+#           service:
+#             name: management-api-admin
+#             port: 
+#               number: 10009
+#         path: /
+#         pathType: Prefix
+#   - host: "chat-openim.k8s.magiclab396.com"
+#     http:
+#       paths:      
+#       - backend:
+#           service:
+#             name: management-api-chat
+#             port: 
+#               number: 10008
+#         path: /
+#         pathType: Prefix
