@@ -16,9 +16,9 @@ spec:
     hosts:
     - "*" 
   - port:
-    number: 443
-    name: https
-    protocol: HTTPS
+      number: 443
+      name: https
+      protocol: HTTPS
     tls:
       mode: SIMPLE                          
       credentialName: myk8s-magiclab396-credential 
