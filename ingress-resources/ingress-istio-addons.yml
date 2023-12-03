@@ -38,8 +38,8 @@ spec:
       paths:      
       - backend:
           service:
-            name: jaeger-collector
+            name: tracing
             port: 
-              number: 9411
+              number: 80
         path: /
         pathType: Prefix
