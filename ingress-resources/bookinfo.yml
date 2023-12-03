@@ -80,11 +80,11 @@
 #           runAsUser: 1000
 #         resources:
 #           requests:
-#             cpu: 100m
-#             memory: 250Mi
+#             cpu: 50m
+#             memory: 150Mi
 #           limits:
-#             cpu: 160m
-#             memory: "400Mi"
+#             cpu: 100m
+#             memory: "250Mi"
 # ---
 # ##################################################################################################
 # # Ratings service
@@ -140,11 +140,11 @@
 #           runAsUser: 1000
 #         resources:
 #           requests:
-#             cpu: 100m
-#             memory: 250Mi
+#             cpu: 50m
+#             memory: 150Mi
 #           limits:
-#             cpu: 160m
-#             memory: "400Mi"
+#             cpu: 100m
+#             memory: "250Mi"
 # ---
 # ##################################################################################################
 # # Reviews service
@@ -208,11 +208,11 @@
 #           runAsUser: 1000
 #         resources:
 #           requests:
-#             cpu: 100m
-#             memory: 250Mi
+#             cpu: 50m
+#             memory: 150Mi
 #           limits:
-#             cpu: 160m
-#             memory: "400Mi"
+#             cpu: 100m
+#             memory: "200Mi"
 #       volumes:
 #       - name: wlp-output
 #         emptyDir: {}
@@ -257,11 +257,11 @@
 #           runAsUser: 1000
 #         resources:
 #           requests:
-#             cpu: 100m
-#             memory: 250Mi
+#             cpu: 50m
+#             memory: 150Mi
 #           limits:
-#             cpu: 160m
-#             memory: "400Mi"
+#             cpu: 100m
+#             memory: "250Mi"
 #       volumes:
 #       - name: wlp-output
 #         emptyDir: {}
@@ -306,11 +306,11 @@
 #           runAsUser: 1000
 #         resources:
 #           requests:
-#             cpu: 100m
-#             memory: 250Mi
+#             cpu: 50m
+#             memory: 150Mi
 #           limits:
-#             cpu: 160m
-#             memory: "400Mi"
+#             cpu: 100m
+#             memory: "250Mi"
 #       volumes:
 #       - name: wlp-output
 #         emptyDir: {}
@@ -367,11 +367,11 @@
 #         imagePullPolicy: IfNotPresent
 #         resources:
 #           requests:
-#             cpu: 100m
-#             memory: 250Mi
+#             cpu: 50m
+#             memory: 125Mi
 #           limits:
-#             cpu: 160m
-#             memory: "400Mi"
+#             cpu: 100m
+#             memory: "250Mi"
 #         ports:
 #         - containerPort: 9080
 #         volumeMounts:
