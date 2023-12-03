@@ -22,7 +22,7 @@ metadata:
   name: openim-api
 spec:
   hosts:
-  - "openim.k8s.magiclab396.com"
+  - openim.k8s.magiclab396.com
   gateways:
   - openim-istio-gateway
   http:
