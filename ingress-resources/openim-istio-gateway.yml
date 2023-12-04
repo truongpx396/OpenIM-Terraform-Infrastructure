@@ -14,7 +14,16 @@ spec:
       mode: SIMPLE                          
       credentialName: myk8s-magiclab396-credential 
     hosts:
-    - "*" 
+    - "*"
+  - port:
+        number: 443
+        name: https-openim-gateway
+        protocol: HTTPS
+    tls:
+      mode: SIMPLE                          
+      credentialName: myk8s-magiclab396-credential 
+    hosts:
+    - "openim-gateway.k8s.magiclab396.com"  
   - port:
       number: 443
       name: https-openim-mgmt-chat
