@@ -23,13 +23,13 @@ spec:
       releaseName: elk-filebeat
       valueFiles:
       - $values/elk/filebeat/values.yaml
-   - chart: kibana
-     repoURL: "https://helm.elastic.co"
-     targetRevision: 8.5.1
-     helm:
-      releaseName: elk-kibana
-      valueFiles:
-      - $values/elk/kibana/values.yaml
+  #  - chart: kibana
+  #    repoURL: "https://helm.elastic.co"
+  #    targetRevision: 8.5.1
+  #    helm:
+  #     releaseName: elk-kibana
+  #     valueFiles:
+  #     - $values/elk/kibana/values.yaml
    - chart: logstash
      repoURL: "https://helm.elastic.co"
      targetRevision: 8.5.1
