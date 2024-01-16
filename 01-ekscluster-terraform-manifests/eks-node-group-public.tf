@@ -15,12 +15,12 @@ resource "aws_eks_node_group" "eks_ng_public" {
   launch_template {
       id      = aws_launch_template.node-group-launch-template.id
       version = aws_launch_template.node-group-launch-template.latest_version
-    }
+  }
   
   
-  # remote_access {
-  #   ec2_ssh_key = "eks-terraform-key"
-  # }
+  remote_access {
+    ec2_ssh_key = "eks-terraform-key"
+  }
 
   scaling_config {
     desired_size = 4
