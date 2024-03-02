@@ -15,23 +15,23 @@ resource "kubernetes_namespace" "argocd" {
   }
 }
 
-resource "kubernetes_namespace" "openim" {
-  metadata {
-    name = "openim"
-  }
-}
+# resource "kubernetes_namespace" "openim" {
+#   metadata {
+#     name = "openim"
+#   }
+# }
 
-resource "kubernetes_namespace" "openim_dependencies" {
-  metadata {
-    name = "openim-dependencies"
-  }
-}
+# resource "kubernetes_namespace" "openim_dependencies" {
+#   metadata {
+#     name = "openim-dependencies"
+#   }
+# }
 
-resource "kubernetes_namespace" "openim_management" {
-  metadata {
-    name = "openim-management"
-  }
-}
+# resource "kubernetes_namespace" "openim_management" {
+#   metadata {
+#     name = "openim-management"
+#   }
+# }
 
 resource "kubernetes_labels" "istio_enabled" {
   api_version = "v1"
