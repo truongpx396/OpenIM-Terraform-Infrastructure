@@ -15,6 +15,9 @@ resource "helm_release" "argocd" {
   ]
 
   depends_on = [
-    kubernetes_namespace.argocd
+    kubernetes_namespace.argocd,
+    # kubernetes_namespace.openim,
+    # kubernetes_namespace.openim_management,
+    # kubernetes_namespace.openim_dependencies
   ]
 }
