@@ -52,7 +52,7 @@ resource "kubernetes_labels" "istio_enabled_openim" {
   }
 
   depends_on = [
-    # kubernetes_namespace.openim,
+    kubernetes_namespace.openim,
     # helm_release.argocd
   ]
 }
@@ -69,7 +69,7 @@ resource "kubernetes_labels" "istio_enabled_openim_dependencies" {
   }
 
   depends_on = [
-    # kubernetes_namespace.openim_dependencies,
+    kubernetes_namespace.openim_dependencies,
     # helm_release.argocd
   ]
 }
@@ -86,7 +86,7 @@ resource "kubernetes_labels" "istio_enabled_openim_management" {
   }
 
   depends_on = [
-    # kubernetes_namespace.openim_management
+    kubernetes_namespace.openim_management
     # helm_release.argocd
   ]
 }
