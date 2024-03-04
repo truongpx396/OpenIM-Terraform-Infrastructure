@@ -8,7 +8,7 @@ resource "kubectl_manifest" "argocd_istio_installer" {
 
     depends_on = [
     helm_release.argocd,
-    kubernetes_labels.istio_enabled
+    # kubernetes_labels.istio_enabled
   ]
 }
 
@@ -22,9 +22,9 @@ resource "kubectl_manifest" "argocd_app_installer" {
 
     depends_on = [
     # helm_release.argocd,
-    kubectl_manifest.argocd_istio_installer,
-    kubernetes_labels.istio_enabled_openim,
-    kubernetes_labels.istio_enabled_openim_dependencies,
-    kubernetes_labels.istio_enabled_openim_management
+    kubectl_manifest.argocd_istio_installer.id,
+    # kubernetes_labels.istio_enabled_openim,
+    # kubernetes_labels.istio_enabled_openim_dependencies,
+    # kubernetes_labels.istio_enabled_openim_management
   ]
 }

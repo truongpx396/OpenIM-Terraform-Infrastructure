@@ -33,68 +33,68 @@ resource "kubernetes_namespace" "argocd" {
 #   }
 # }
 
-resource "kubernetes_labels" "istio_enabled" {
-  api_version = "v1"
-  kind        = "Namespace"
-  metadata {
-    name = "default"
-    namespace = "default"
-  }
-  labels = {
-    istio-injection = "enabled"
-  }
-}
+# resource "kubernetes_labels" "istio_enabled" {
+#   api_version = "v1"
+#   kind        = "Namespace"
+#   metadata {
+#     name = "default"
+#     namespace = "default"
+#   }
+#   labels = {
+#     istio-injection = "enabled"
+#   }
+# }
 
-resource "kubernetes_labels" "istio_enabled_openim" {
-  api_version = "v1"
-  kind        = "Namespace"
-  metadata {
-    name = "openim"
-    namespace = "openim"
-  }
-  labels = {
-    istio-injection = "enabled"
-  }
+# resource "kubernetes_labels" "istio_enabled_openim" {
+#   api_version = "v1"
+#   kind        = "Namespace"
+#   metadata {
+#     name = "openim"
+#     namespace = "openim"
+#   }
+#   labels = {
+#     istio-injection = "enabled"
+#   }
 
-  depends_on = [
-    # kubernetes_namespace.openim,
-    helm_release.argocd
-  ]
-}
+#   depends_on = [
+#     # kubernetes_namespace.openim,
+#     helm_release.argocd
+#   ]
+# }
 
-resource "kubernetes_labels" "istio_enabled_openim_dependencies" {
-  api_version = "v1"
-  kind        = "Namespace"
-  metadata {
-    name = "openim-dependencies"
-    namespace = "openim-dependencies"
-  }
-  labels = {
-    istio-injection = "enabled"
-  }
+# resource "kubernetes_labels" "istio_enabled_openim_dependencies" {
+#   api_version = "v1"
+#   kind        = "Namespace"
+#   metadata {
+#     name = "openim-dependencies"
+#     namespace = "openim-dependencies"
+#   }
+#   labels = {
+#     istio-injection = "enabled"
+#   }
 
-  depends_on = [
-    # kubernetes_namespace.openim_dependencies,
-    helm_release.argocd
-  ]
-}
+#   depends_on = [
+#     # kubernetes_namespace.openim_dependencies,
+#     helm_release.argocd
+#   ]
+# }
 
-resource "kubernetes_labels" "istio_enabled_openim_management" {
-  api_version = "v1"
-  kind        = "Namespace"
-  metadata {
-    name = "openim-management"
-    namespace = "openim-management"
-  }
-  labels = {
-    istio-injection = "enabled"
-  }
+# resource "kubernetes_labels" "istio_enabled_openim_management" {
+#   api_version = "v1"
+#   kind        = "Namespace"
+#   metadata {
+#     name = "openim-management"
+#     namespace = "openim-management"
+#   }
+#   labels = {
+#     istio-injection = "enabled"
+#   }
 
-  depends_on = [
-    # kubernetes_namespace.openim_management
-    helm_release.argocd
-  ]
-}
+#   depends_on = [
+#     # kubernetes_namespace.openim_management
+#     helm_release.argocd
+#   ]
+# }
 
 
 
