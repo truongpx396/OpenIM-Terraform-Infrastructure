@@ -1,48 +1,48 @@
-# apiVersion: argoproj.io/v1alpha1
-# kind: Application
-# metadata: 
-#   name: elk-app
-#   namespace: argocd
-# spec: 
-#   destination: 
-#     namespace: logging
-#     server: "https://kubernetes.default.svc"
-#   project: system-project
-#   sources: 
-#    - chart: elasticsearch
-#      repoURL: "https://helm.elastic.co"
-#      targetRevision: 8.5.1
-#      helm:
-#       releaseName: elk-elasticsearch
-#       valueFiles:
-#       - $values/elk/elasticsearch/values.yaml
-#    - chart: filebeat
-#      repoURL: "https://helm.elastic.co"
-#      targetRevision: 8.5.1
-#      helm:
-#       releaseName: elk-filebeat
-#       valueFiles:
-#       - $values/elk/filebeat/values.yaml
-#   #  - chart: kibana
-#   #    repoURL: "https://helm.elastic.co"
-#   #    targetRevision: 8.5.1
-#   #    helm:
-#   #     releaseName: elk-kibana
-#   #     valueFiles:
-#   #     - $values/elk/kibana/values.yaml
-#    - chart: logstash
-#      repoURL: "https://helm.elastic.co"
-#      targetRevision: 8.5.1
-#      helm:
-#       releaseName: elk-logstash
-#       valueFiles:
-#       - $values/elk/logstash/values.yaml
-#    - repoURL: "https://github.com/truongpx396/OpenIM-K8S-Deployment.git"
-#      ref: values
-#      targetRevision: main
-#   syncPolicy:
-#     automated: 
-#       prune: true
-#       selfHeal: true
-#     syncOptions:
-#       - CreateNamespace=true
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata: 
+  name: elk-app
+  namespace: argocd
+spec: 
+  destination: 
+    namespace: logging
+    server: "https://kubernetes.default.svc"
+  project: system-project
+  sources: 
+   - chart: elasticsearch
+     repoURL: "https://helm.elastic.co"
+     targetRevision: 8.5.1
+     helm:
+      releaseName: elk-elasticsearch
+      valueFiles:
+      - $values/elk/elasticsearch/values.yaml
+   - chart: filebeat
+     repoURL: "https://helm.elastic.co"
+     targetRevision: 8.5.1
+     helm:
+      releaseName: elk-filebeat
+      valueFiles:
+      - $values/elk/filebeat/values.yaml
+  #  - chart: kibana
+  #    repoURL: "https://helm.elastic.co"
+  #    targetRevision: 8.5.1
+  #    helm:
+  #     releaseName: elk-kibana
+  #     valueFiles:
+  #     - $values/elk/kibana/values.yaml
+   - chart: logstash
+     repoURL: "https://helm.elastic.co"
+     targetRevision: 8.5.1
+     helm:
+      releaseName: elk-logstash
+      valueFiles:
+      - $values/elk/logstash/values.yaml
+   - repoURL: "https://github.com/truongpx396/OpenIM-K8S-Deployment.git"
+     ref: values
+     targetRevision: main
+  syncPolicy:
+    automated: 
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
