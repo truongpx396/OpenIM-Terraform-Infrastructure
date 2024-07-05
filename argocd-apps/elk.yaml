@@ -1,8 +1,10 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata: 
-  name: elk-app
+  name: elk-app-base
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
 spec: 
   destination: 
     namespace: logging
@@ -16,6 +18,38 @@ spec:
       releaseName: elk-elasticsearch
       valueFiles:
       - $values/elk/elasticsearch/values.yaml
+   - chart: logstash
+     repoURL: "https://helm.elastic.co"
+     targetRevision: 8.5.1
+     helm:
+      releaseName: elk-logstash
+      valueFiles:
+      - $values/elk/logstash/values.yaml
+   - repoURL: "https://github.com/truongpx396/OpenIM-K8S-Deployment.git"
+     ref: values
+     targetRevision: main
+  syncPolicy:
+    automated: 
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+  
+---
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata: 
+  name: elk-app
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+spec: 
+  destination: 
+    namespace: logging
+    server: "https://kubernetes.default.svc"
+  project: system-project
+  sources: 
    - chart: filebeat
      repoURL: "https://helm.elastic.co"
      targetRevision: 8.5.1
@@ -30,13 +64,6 @@ spec:
       releaseName: elk-kibana
       valueFiles:
       - $values/elk/kibana/values.yaml
-   - chart: logstash
-     repoURL: "https://helm.elastic.co"
-     targetRevision: 8.5.1
-     helm:
-      releaseName: elk-logstash
-      valueFiles:
-      - $values/elk/logstash/values.yaml
    - repoURL: "https://github.com/truongpx396/OpenIM-K8S-Deployment.git"
      ref: values
      targetRevision: main
