@@ -49,7 +49,7 @@ spec:
       paths:      
       - backend:
           service:
-            name: elk-logstash-logstash
+            name: elk-kibana-kibana
             port: 
               number: 5601
         path: /
