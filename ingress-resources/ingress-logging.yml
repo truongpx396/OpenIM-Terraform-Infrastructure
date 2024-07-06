@@ -19,7 +19,7 @@ metadata:
     # alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-southeast-1:659706089488:certificate/8409e5b2-ddb2-4249-8f39-8d8a931a585f
     alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-southeast-1:659706089488:certificate/0794d684-6a4c-46ba-9989-11d434dc16df
     # external-dns.alpha.kubernetes.io/hostname: elasticsearch.k8s.magiclab396.com,logstash.k8s.magiclab396.com,kibana.k8s.magiclab396.com
-    external-dns.alpha.kubernetes.io/hostname: elasticsearch.k8s.magiclab396.com,logstash.k8s.magiclab396.com,minio-api.k8s.magiclab396.com
+    external-dns.alpha.kubernetes.io/hostname: elasticsearch.k8s.magiclab396.com,minio-console.k8s.magiclab396.com,minio-api.k8s.magiclab396.com
     alb.ingress.kubernetes.io/group.name: myapps.web
     alb.ingress.kubernetes.io/group.order: '80'
 spec:
@@ -35,7 +35,7 @@ spec:
               number: 9200
         path: /
         pathType: Prefix
-  - host: "logstash.k8s.magiclab396.com"
+  - host: "minio-console.k8s.magiclab396.com"
     http:
       paths:      
       - backend:
