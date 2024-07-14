@@ -18,7 +18,7 @@ metadata:
     # alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-southeast-1:659706089488:certificate/793a6154-8a24-449d-aed5-9257e19f5c92
     # alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-southeast-1:659706089488:certificate/8409e5b2-ddb2-4249-8f39-8d8a931a585f
     alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-southeast-1:659706089488:certificate/250de3f8-09ec-461a-aa63-7e2b92e4d187
-    external-dns.alpha.kubernetes.io/hostname: kafka-ui.k8s.magiclab396.com,mongo-express.k8s.magiclab396.com,phpmyadmin.k8s.magiclab396.com,redis-commander.k8s.magiclab396.com,zoonavigator.k8s.magiclab396.com
+    external-dns.alpha.kubernetes.io/hostname: kafka-ui.k8s.magiclab396.com,mongo-express.k8s.magiclab396.com,phpmyadmin.k8s.magiclab396.com,redis-commander.k8s.magiclab396.com,zoonavigator.k8s.magiclab396.com,reserve4.k8s.magiclab396.com
     alb.ingress.kubernetes.io/group.name: myapps.web
     alb.ingress.kubernetes.io/group.order: '50'
 spec:
@@ -50,6 +50,16 @@ spec:
       - backend:
           service:
             name: openim-data-viewer-phpmyadmin
+            port: 
+              number: 80
+        path: /
+        pathType: Prefix
+  - host: "reserve4.k8s.magiclab396.com"
+    http:
+      paths:      
+      - backend:
+          service:
+            name: openim-data-viewer-phpmyadmin2
             port: 
               number: 80
         path: /

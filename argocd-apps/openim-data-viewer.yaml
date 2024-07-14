@@ -16,6 +16,13 @@ spec:
       releaseName: openim-data-viewer-phpmyadmin
       valueFiles:
       - $values/open-im-data-viewer/php-myadmin/values.yaml
+   - chart: phpmyadmin
+     repoURL: "https://charts.alekc.dev"
+     targetRevision: 0.2.0
+     helm:
+      releaseName: openim-data-viewer-phpmyadmin2
+      valueFiles:
+      - $values/open-im-data-viewer/php-myadmin2/values.yaml
    - chart: redis-commander
      repoURL: "https://kfirfer.github.io/charts"
      targetRevision: 0.1.14
