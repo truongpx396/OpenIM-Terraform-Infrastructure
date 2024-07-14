@@ -11,7 +11,8 @@ spec:
   sources: 
    - chart: mysql
      repoURL: "https://charts.bitnami.com/bitnami"
-     targetRevision: 9.14.1
+    #  targetRevision: 9.14.1
+     targetRevision: 11.1.9
      helm:
       releaseName: openim-mysql
       valueFiles:
