@@ -59,7 +59,7 @@ spec:
       paths:      
       - backend:
           service:
-            name: openim-data-viewer-phpmyadmin2
+            name: openim-data-viewer-adminer
             port: 
               number: 80
         path: /
