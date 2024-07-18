@@ -13,7 +13,9 @@ resource "aws_launch_template" "node-group-launch-template" {
       ebs_optimized = true
 
       key_name = "eks-terraform-key"
-    
+
+     
+
       user_data = "${data.template_cloudinit_config.config.rendered}"
       # user_data = filebase64("${path.module}/example.sh")
     }
@@ -21,7 +23,6 @@ resource "aws_launch_template" "node-group-launch-template" {
     data "template_cloudinit_config" "config" {
       gzip          = false
       base64_encode = true
-
       part {
         content = "${data.template_file.set-max-pods.rendered}"
       }
