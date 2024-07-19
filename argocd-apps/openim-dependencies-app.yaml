@@ -67,6 +67,9 @@ spec:
   #     releaseName: openim-etcd
       # valueFiles:
       # - $values/etcd/values.yaml
+   - path: open-im-dependencies/mysql/tmp-service
+     repoURL: "https://github.com/truongpx396/OpenIM-K8S-Deployment.git"
+     targetRevision: main
    - repoURL: "https://github.com/truongpx396/OpenIM-K8S-Deployment.git"
      ref: values
      targetRevision: main
