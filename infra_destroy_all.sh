@@ -1,0 +1,1 @@
+cd 01-ekscluster-terraform-manifests && terraform destroy -auto-approve &
